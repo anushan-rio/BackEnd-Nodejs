@@ -39,6 +39,33 @@ router.post('/register',(req,res)=>{
 })
 
 router.post('/login',(req,res)=>{
-    
+        const email=req.body.email;
+        const password=req.body.password;
+        Persondata.findOne({email})
+            .then(logindata=>{
+                    if(logindata){
+                        bcrypt.compare(password,logindata.password)
+                            .then(password=>{
+                                if(password){
+                                    const usertype=logindata.usertype;
+                                    if(usertype=="admin"){
+                                        return res.json({logindata})
+                                    }
+                                    else{
+                                        return res.json({usertype:"student"})
+                                    }
+                                }
+                                else{
+                                    return res.json({password:"passsword is incorrect"})
+                                }
+                            })
+                            .catch(err=>console.log("Error in password"))
+                        
+                    }
+                    else{
+                        return res.json({userlogin:"username and pssword is not coreect"})
+                    }
+            })
+            .catch(err=>console.log("error in login page"))
 })
 module.exports=router
