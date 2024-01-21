@@ -38,5 +38,7 @@ router.post('/register',(req,res)=>{
         .catch(err=>console.log("ERROR IN REGISTERATION PLEASE CONATCT ADMIN"))
 })
 
-
+router.post('/login',(req,res)=>{
+    
+})
 module.exports=router
