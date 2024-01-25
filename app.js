@@ -1,6 +1,7 @@
 const express=require('express');
 const mongoose=require('mongoose');
 const bodyParser = require('body-parser')
+const passport = require("passport");
 const app=express();
 const port= process.env.PORT || 4000;
 
@@ -13,7 +14,8 @@ mongoose.connect(db)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use(passport.initialize());
+require("./strategies/JsonWebToke")(passport);
 
 
 const auth=require('./routes/api/auth')

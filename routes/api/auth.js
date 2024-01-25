@@ -2,7 +2,10 @@ const express=require('express');
 const router=express.Router();
 const mongoose=require('mongoose');
 const bcrypt = require('bcrypt');
+const passport=require('passport');
+const jsonwt = require("jsonwebtoken");
 
+const key=require('../../setup/myurl');
 const Persondata=require('../../models/Person');
 
 
@@ -49,9 +52,28 @@ router.post('/login',(req,res)=>{
                                 if(password){
                                     const usertype=logindata.usertype;
                                     if(usertype=="admin"){
-                                        return res.json({logindata})
+                                        //return res.json({logindata})
+                                        console.log("TT")
+                                        const payload = {
+                                            id: logindata.id,
+                                            username:logindata.username,
+                                            email: logindata.email
+                                          };
+                                          jsonwt.sign(
+                                            payload,
+                                            key.secret,
+                                            { expiresIn: 3600 },
+                                            (err, token) => {
+                                              res.json({
+                                                success: true,
+                                                token: "Bearer " + token
+                                              });
+                                            }
+                                          );
+                                          console.log(payload)
                                     }
                                     else{
+                                        console.log("T4")
                                         return res.json({usertype:"student"})
                                     }
                                 }
@@ -68,4 +90,21 @@ router.post('/login',(req,res)=>{
             })
             .catch(err=>console.log("error in login page"))
 })
+
+
+router.get(
+    "/session",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      // console.log(req);
+      res.json({
+        id: req.user.id,
+        
+        email: req.user.email
+       
+      });
+    }
+  );
+
+
 module.exports=router
