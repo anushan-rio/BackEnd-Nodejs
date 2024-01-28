@@ -99,7 +99,6 @@ router.get(
       // console.log(req);
       res.json({
         id: req.user.id,
-        
         email: req.user.email
        
       });

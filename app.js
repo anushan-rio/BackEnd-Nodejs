@@ -19,10 +19,11 @@ require("./strategies/JsonWebToke")(passport);
 
 
 const auth=require('./routes/api/auth')
-
+const joinperson=require('./routes/api/joinpersons');
 
 
 
 app.use('/api/auth',auth);
+app.use('/api/joinpersons',joinperson)
 
 app.listen(port,()=>console.log('localhost:'+port))
