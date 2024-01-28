@@ -37,4 +37,4 @@ const  AddPersonSchema=new Schema({
 
 })
 
-module.exports=AddPerson=mongoose.model('AddPerson',AddPersonSchema)
+module.exports=AddPerson=mongoose.model('Addstudent',AddPersonSchema)
