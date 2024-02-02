@@ -45,6 +45,9 @@ const BooksSchema=new Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    deletedflag:{
+        type:Number
     }
 })
 
