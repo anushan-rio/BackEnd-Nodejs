@@ -46,9 +46,8 @@ const BooksSchema=new Schema({
         type: Date,
         default: Date.now
     },
-    deletedflag:{
-        type:Number
-    }
+    
+    
 })
 
 module.exports=Books=mongoose.model('Book',BooksSchema)
