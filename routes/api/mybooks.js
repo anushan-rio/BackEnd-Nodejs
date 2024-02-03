@@ -40,7 +40,16 @@ router.post('/addbooks',
 
 
 
-
+router.post('/updatebooks', 
+            passport.authenticate("jwt", { session: false }),
+            (req,res)=>{
+                const BookTitle=req.body.BookTitle;
+                Books.findOne({BookTitle})
+                    .then(books=>{
+                        return res.json({books})
+                    })
+                    .catch(err=>console.log("Err problem"))
+            })
 
 
 
