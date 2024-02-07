@@ -11,6 +11,7 @@ router.post('/addbooks',
         passport.authenticate("jwt", { session: false }), 
         (req,res)=>{
             const Booksvalues = {};
+            Booksvalues.OrgId = req.user.id;
             if (req.body.BookTitle) Booksvalues.BookTitle = req.body.BookTitle;
             if (req.body.Author) Booksvalues.Author = req.body.Author;
             if (req.body.Category) Booksvalues.Category = req.body.Category;
@@ -25,7 +26,7 @@ router.post('/addbooks',
                     if(books){
                         //return res.json({"books":"already exist"})
                         Books.findOneAndUpdate(
-                            { BookTitle: req.body.BookTitle },
+                            { BookTitle: req.body.BookTitle,OrgId:req.user.id},
                             { $set: Booksvalues },
                             { new: true }
                           )
@@ -44,7 +45,11 @@ router.post('/addbooks',
         })
 
 
+router.delete('/deletebooks',
+            passport.authenticate("jwt", { session: false }),
+                (req,res)=>{
 
+            })
 
 
 
