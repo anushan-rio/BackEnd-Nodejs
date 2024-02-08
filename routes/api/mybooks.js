@@ -48,7 +48,7 @@ router.post('/addbooks',
 router.delete('/deletebooks',
             passport.authenticate("jwt", { session: false }),
                 (req,res)=>{
-
+                    Books.findOne({BookTitle:req.body.BookTitle})
             })
 
 
