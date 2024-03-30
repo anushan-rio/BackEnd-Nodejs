@@ -15,7 +15,11 @@ const NoticeSchema=new Schema({
         type:String,
         require:true
     },
-    Schedulemonth:{
+    StartDate:{
+        type:String,
+        require:true
+    },
+    Enddate:{
         type:String,
         require:true
     },

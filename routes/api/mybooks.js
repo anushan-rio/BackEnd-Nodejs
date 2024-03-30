@@ -45,16 +45,24 @@ router.post('/addbooks',
         })
 
 
-router.delete('/deletebooks',
-            passport.authenticate("jwt", { session: false }),
-                (req,res)=>{
-                    Books.findOne({BookTitle:req.body.BookTitle})
-                        .then(books=>{
-                            
-                        })
-                        .catch(err=>console.log("deleteroute for books"))
-            })
+router.delete('/deletebooks',passport.authenticate("jwt", { session: false }),(req,res)=>{
+    Books.findOne({BookTitle:req.body.BookTitle})
+        .then(books=>{
+            if(books){
+                Books.deleteOne({BookTitle:req.body.BookTitle})
+                    .then(books=>{
+                        return res.json({books:"sucessfully deleted"})
+                    })
+                    .catch(err=>console.log("err---1-"+err))
+                
+            }
+            else{
+                return res.json({book:"no books found"})
+            }
+        })
+        .catch(err=>console.log("err--2--"+err))
 
+})
 
 
 
